@@ -2,6 +2,8 @@ import React, { useRef } from 'react';
 import { useGLTF, useKeyboardControls } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
+import { Html } from '@react-three/drei';
+import { Instructions } from '../instructions';
 import { updateVehicle } from '../../util/updateVehicle';
 
 const delayedRotMatrix = new THREE.Matrix4();
@@ -10,14 +12,17 @@ export function HoverCar(props) {
 	const { nodes, materials } = useGLTF('/models/hoverCar.glb');
 	const [subscribeKeys, getKeys] = useKeyboardControls();
 	const vehicleRef = useRef();
+	const htmlRef = useRef();
+
 	materials['Hover DMC'].toneMapped = false;
-	console.log(nodes['DMC_Sci-Fi_Hover_Car'].position);
+	// console.log(nodes['DMC_Sci-Fi_Hover_Car'].position);
 	const x = new THREE.Vector3(1, 0, 0);
 	const y = new THREE.Vector3(0, 1, 0);
 	const z = new THREE.Vector3(0, 0, 1);
 	const vehiclePosition = new THREE.Vector3(0, 5, 7);
 
 	useFrame((state, delta) => {
+		// console.log(htmlRef.current);
 		// console.log(forces);
 		const { forward, backward, leftward, rightward, up, down } = getKeys();
 		updateVehicle(
@@ -89,6 +94,19 @@ export function HoverCar(props) {
 		// carRef.current.addForce(force);
 	});
 	return (
+		<>
+			<Html fullscreen ref={htmlRef} wrapperClass="html-wrapper">
+				<Instructions />
+			</Html>
+			<mesh
+				castShadow
+				receiveShadow
+				geometry={nodes['DMC_Sci-Fi_Hover_Car'].geometry}
+				material={materials['Hover DMC']}
+				position={[-0.075, 0.125, -1.222]}
+				ref={vehicleRef}
+			/>
+		</>
 		// <RigidBody
 		// 	restitution={0.2}
 		// 	friction={1}
@@ -99,14 +117,7 @@ export function HoverCar(props) {
 		// 	gravityScale={0}
 		// 	ref={carRef}
 		// >
-		<mesh
-			castShadow
-			receiveShadow
-			geometry={nodes['DMC_Sci-Fi_Hover_Car'].geometry}
-			material={materials['Hover DMC']}
-			position={[-0.075, 0.125, -1.222]}
-			ref={vehicleRef}
-		/>
+
 		// </RigidBody>
 	);
 }

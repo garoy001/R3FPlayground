@@ -1,4 +1,4 @@
-import { Environment, OrbitControls } from '@react-three/drei';
+import { Environment, Html, OrbitControls } from '@react-three/drei';
 // import { FramesComponent } from '/assets/components/frames/frames.jsx';
 import { LineGroup } from './assets/components/lines/lineGroup';
 import { Bloom, EffectComposer } from '@react-three/postprocessing';
@@ -6,6 +6,7 @@ import { useFrame, useThree } from '@react-three/fiber';
 import { Buildings } from './assets/components/models/Buildings';
 import { Test } from './assets/components/models/test';
 import { HoverCar } from './assets/components/models/hoverCar';
+import { Instructions } from './assets/components/instructions';
 
 export const Main = () => {
 	const { gl, camera } = useThree();
@@ -15,6 +16,7 @@ export const Main = () => {
 	});
 	return (
 		<>
+			
 			<OrbitControls />
 			<color attach="background" args={['#191920']} />
 			<fog attach="fog" args={['#191920', 0, 55]} />

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { Main } from './main';
 import { KeyboardControls } from '@react-three/drei';
+import { Instructions } from './assets/components/instructions';
 
 function App() {
 	return (
@@ -25,6 +26,7 @@ function App() {
 				>
 					<Main />
 				</Canvas>
+		
 			</KeyboardControls>
 		</>
 	);

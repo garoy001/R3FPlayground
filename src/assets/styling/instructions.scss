@@ -1,0 +1,21 @@
+.instructions {
+	table {
+		color: white;
+		padding-left: 2em;
+		font-family: 'Montserrat';
+		th {
+			font-size: 2em;
+			font-weight: 300;
+		}
+		.instructions-title {
+			padding-left: 0.5em;
+		}
+		.instructions-button {
+			text-align: center;
+		}
+	}
+}
+.html-wrapper {
+	position: fixed;
+	transform: translate3d(1535.45px, 1417.02px, 0px) scale(1) !important;
+}
