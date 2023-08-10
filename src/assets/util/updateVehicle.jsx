@@ -98,7 +98,7 @@ export const updateVehicle = (
 				);
 			}
 		}
-		if (up) {
+		if (up && !down) {
 			forces.vehicleDeceleration = 0;
 			forces.ascDescSpeed;
 			if (Math.abs(forces.ascDescSpeed) < forces.maxSpeed) {
@@ -108,7 +108,7 @@ export const updateVehicle = (
 				);
 			}
 		}
-		if (down) {
+		if (down && !up) {
 			forces.vehicleDeceleration = 0;
 			forces.ascDescSpeed;
 			if (Math.abs(forces.ascDescSpeed) < forces.maxSpeed) {
@@ -118,7 +118,7 @@ export const updateVehicle = (
 				);
 			}
 		}
-		if (!up && !down) {
+		if ((!up && !down) || (up && down)) {
 			forces.vehicleDeceleration = Math.min(
 				forces.vehicleDeceleration + 0.0165,
 				0.1
@@ -141,6 +141,7 @@ export const updateVehicle = (
 			forces.vehicleDeceleration = 0;
 		}
 		if (rightward) {
+			leftward = false;
 			forces.jawVelocity = Math.max(forces.jawVelocity - 0.025, -0.055);
 			// forces.turnVelocity = 0.025;
 			// if (x.x < limits.tilt && x.y > 0) {
@@ -150,6 +151,7 @@ export const updateVehicle = (
 			// }
 		}
 		if (leftward) {
+			rightward = false;
 			forces.jawVelocity = Math.min(forces.jawVelocity + 0.025, 0.055);
 			// forces.turnVelocity = 0.025;
 			// if (x.x < limits.tilt && x.y < 0) {

@@ -88,7 +88,7 @@ export function HoverCar(props) {
 		vehicleRef.current.matrixAutoUpdate = false;
 		vehicleRef.current.matrix.copy(matrix);
 		vehicleRef.current.matrixWorldNeedsUpdate;
-
+		console.log(vehicleRef.current.position);
 		// carRef.current.applyImpulse(impulse);
 		// carRef.current.applyTorqueImpulse(torque);
 		// carRef.current.addForce(force);
