@@ -21,9 +21,11 @@ export const FloorGen = ({ cubeSize, overallWidth, scale }) => {
 					<Bloom mipmapBlur Bloom intensity={1} luminanceThreshold={0.5} />
 				</EffectComposer>
 				{/* <Select enabled> */}
-				{cubeMap.map((e) => {
+				{cubeMap.map((e, k) => {
 					// console.log(e);
-					return <FloorCube position={e} size={cubeSize} scale={scale} />;
+					return (
+						<FloorCube position={e} size={cubeSize} scale={scale} key={k} />
+					);
 				})}
 				{/* </Select> */}
 			</Selection>

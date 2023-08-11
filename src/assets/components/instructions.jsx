@@ -3,7 +3,6 @@ export const Instructions = () => {
 		<div className="instructions">
 			<table>
 				<tbody>
-					{' '}
 					<tr>
 						<th>Instructions</th>
 					</tr>

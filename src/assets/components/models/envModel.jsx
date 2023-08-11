@@ -14,7 +14,7 @@ const colorCalc = {
 export function EnvModel(props) {
 	const group = useRef();
 	const { nodes, materials, animations } = useGLTF('/models/environment.glb');
-	console.log(materials);
+
 	const { actions } = useAnimations(animations, group);
 	// console.log(actions);
 	useEffect(() => {

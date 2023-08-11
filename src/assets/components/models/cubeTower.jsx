@@ -1035,9 +1035,14 @@ export const CubeTower = () => {
 	}, []);
 	return (
 		<group dispose={null}>
-			{meshes.map((e) => {
+			{meshes.map((e, k) => {
 				return (
-					<RigidBody type="kinematicPosition" restitution={0.2} friction={0}aw>
+					<RigidBody
+						type="kinematicPosition"
+						restitution={0.2}
+						friction={0}
+						key={k}
+					>
 						<Float rotationIntensity={4} floatIntensity={20}>
 							<group scale={2} position={[0, 4, 0]}>
 								{e}
