@@ -5,6 +5,7 @@ import * as THREE from 'three';
 import { Html } from '@react-three/drei';
 import { Instructions } from '../instructions';
 import { updateVehicle } from '../../util/updateVehicle';
+import { RigidBody } from '@react-three/rapier';
 
 const delayedRotMatrix = new THREE.Matrix4();
 const delayedQuaternion = new THREE.Quaternion();
@@ -15,15 +16,13 @@ export function HoverCar(props) {
 	const htmlRef = useRef();
 
 	materials['Hover DMC'].toneMapped = false;
-	// console.log(nodes['DMC_Sci-Fi_Hover_Car'].position);
+
 	const x = new THREE.Vector3(1, 0, 0);
 	const y = new THREE.Vector3(0, 1, 0);
 	const z = new THREE.Vector3(0, 0, 1);
 	const vehiclePosition = new THREE.Vector3(0, 5, 7);
 
 	useFrame((state, delta) => {
-		// console.log(htmlRef.current);
-		// console.log(forces);
 		const { forward, backward, leftward, rightward, up, down } = getKeys();
 		updateVehicle(
 			x,
@@ -39,8 +38,14 @@ export function HoverCar(props) {
 			down,
 			delta
 		);
+		if (forward || backward) {
+			materials['Hover DMC'].emissiveIntensity = 6;
+		}
+		if (!forward && !backward) {
+			materials['Hover DMC'].emissiveIntensity = 2.5;
+		}
 		const rotMatrix = new THREE.Matrix4().makeBasis(x, y, z);
-		// console.log(rotMatrix);d
+
 		const matrix = new THREE.Matrix4()
 			.multiply(
 				new THREE.Matrix4().makeTranslation(
@@ -51,11 +56,6 @@ export function HoverCar(props) {
 			)
 			.multiply(rotMatrix);
 		var quaternionA = new THREE.Quaternion().copy(delayedQuaternion);
-
-		// warning! setting the quaternion from the rotation matrix will cause
-		// issues that resemble gimbal locks, instead, always use the quaternion notation
-		// throughout the slerping phase
-		// quaternionA.setFromRotationMatrix(delayedRotMatrix);
 
 		var quaternionB = new THREE.Quaternion();
 		quaternionB.setFromRotationMatrix(rotMatrix);
@@ -84,37 +84,39 @@ export function HoverCar(props) {
 		state.camera.matrix.copy(cameraMatrix);
 		state.camera.matrixWorldNeedsUpdate = true;
 
-		// console.log(carRef.current);
 		vehicleRef.current.matrixAutoUpdate = false;
 		vehicleRef.current.matrix.copy(matrix);
 		vehicleRef.current.matrixWorldNeedsUpdate;
-		console.log(vehicleRef.current.position);
-		// carRef.current.applyImpulse(impulse);
-		// carRef.current.applyTorqueImpulse(torque);
-		// carRef.current.addForce(force);
 	});
 	return (
 		<>
 			<Html fullscreen ref={htmlRef} wrapperClass="html-wrapper">
 				<Instructions />
 			</Html>
-			<mesh
-				castShadow
-				receiveShadow
-				geometry={nodes['DMC_Sci-Fi_Hover_Car'].geometry}
-				material={materials['Hover DMC']}
-				position={[-0.075, 0.125, -1.222]}
-				ref={vehicleRef}
-			/>
+			<RigidBody
+				canSleep={false}
+				type="kinematicPosition"
+				restitution={0.2}
+				friction={0}
+			>
+				<mesh
+					castShadow
+					receiveShadow
+					geometry={nodes['DMC_Sci-Fi_Hover_Car'].geometry}
+					material={materials['Hover DMC']}
+					position={[-0.075, 0.125, -1.222]}
+					ref={vehicleRef}
+				/>
+			</RigidBody>
 		</>
 		// <RigidBody
 		// 	restitution={0.2}
 		// 	friction={1}
 		// 	linearDamping={0.5}
 		// 	angularDamping={0.5}
-		// 	canSleep={false}
+		//
 		// 	position={[0, 1, 7]}
-		// 	gravityScale={0}
+		//
 		// 	ref={carRef}
 		// >
 

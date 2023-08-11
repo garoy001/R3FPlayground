@@ -23,10 +23,15 @@ function App() {
 						fov: 70,
 						position: [5, 7, 15],
 					}}
+					gl={{
+						antialias: true,
+
+						autoClear: false,
+						depth: true,
+					}}
 				>
 					<Main />
 				</Canvas>
-		
 			</KeyboardControls>
 		</>
 	);

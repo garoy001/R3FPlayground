@@ -36,6 +36,7 @@ export const Circle = ({ position, scale }) => {
 	// useFrame(() => {
 	// 	// console.log(lineBloomRef);
 	// });
+	// console.log(material);
 	return (
 		<>
 			<line
@@ -133,8 +134,8 @@ export const Line1 = ({ position, scale, rotation }) => {
 	const geometry1 = new THREE.BufferGeometry().setFromPoints(points.points1);
 	const geometry2 = new THREE.BufferGeometry().setFromPoints(points.points2);
 	const geometry3 = new THREE.BufferGeometry().setFromPoints(points.points3);
-	console.log(scale[0]);
-	console.log(-0.5 * scale[0] - cirR + 1);
+	// console.log(scale[0]);
+	// console.log(-0.5 * scale[0] - cirR + 1);
 
 	return (
 		<>
