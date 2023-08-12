@@ -20,7 +20,7 @@ export function HoverCar(props) {
 	const x = new THREE.Vector3(1, 0, 0);
 	const y = new THREE.Vector3(0, 1, 0);
 	const z = new THREE.Vector3(0, 0, 1);
-	const vehiclePosition = new THREE.Vector3(0, 5, 7);
+	const vehiclePosition = new THREE.Vector3(0, 50, -50);
 
 	useFrame((state, delta) => {
 		const { forward, backward, leftward, rightward, up, down } = getKeys();
@@ -80,19 +80,43 @@ export function HoverCar(props) {
 			.multiply(new THREE.Matrix4().makeRotationY(-Math.PI))
 
 			.multiply(new THREE.Matrix4().makeTranslation(0, 7, 20));
+		const htmlMatrix = new THREE.Matrix4()
+			.multiply(
+				new THREE.Matrix4().makeTranslation(
+					vehiclePosition.x,
+					vehiclePosition.y,
+					vehiclePosition.z
+				)
+			)
+			.multiply(delayedRotMatrix)
+			.multiply(new THREE.Matrix4().makeRotationX(Math.PI / 20))
+			.multiply(new THREE.Matrix4().makeRotationY(-Math.PI))
+
+			.multiply(new THREE.Matrix4().makeTranslation(0, 0, 0));
 		state.camera.matrixAutoUpdate = false;
 		state.camera.matrix.copy(cameraMatrix);
 		state.camera.matrixWorldNeedsUpdate = true;
-
+		console.log(state.camera);
 		vehicleRef.current.matrixAutoUpdate = false;
 		vehicleRef.current.matrix.copy(matrix);
 		vehicleRef.current.matrixWorldNeedsUpdate;
+
+		htmlRef.current.matrixAutoUpdate = false;
+		htmlRef.current.matrix.copy(htmlMatrix);
+		htmlRef.current.matrixWorldNeedsUpdate;
 	});
 	return (
 		<>
-			<Html fullscreen ref={htmlRef} wrapperClass="html-wrapper">
-				<Instructions />
-			</Html>
+			<group ref={htmlRef}>
+				<Html
+					wrapperClass="html-wrapper"
+					position={[0, 1.56, -1.4]}
+					rotation-x={-0.256}
+				>
+					<Instructions />
+				</Html>
+			</group>
+
 			<RigidBody
 				canSleep={false}
 				type="kinematicPosition"

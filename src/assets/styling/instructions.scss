@@ -1,4 +1,7 @@
 .instructions {
+	position: fixed;
+	left: 0;
+	bottom: 0;
 	table {
 		color: white;
 		padding-left: 2em;
@@ -16,8 +19,10 @@
 	}
 }
 .html-wrapper {
-	position: fixed;
+	width: 50vw;
+	height: 50vh;
+	top: auto !important;
 	left: 0;
 	bottom: 0;
-	transform: translate3d(1535.45px, 1417.02px, 0px) scale(1) !important;
+	transform: translate3d(0px, -20px, 0px) scale(1) !important;
 }
