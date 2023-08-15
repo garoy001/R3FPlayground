@@ -1,0 +1,36 @@
+.instructions {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	table {
+		color: white;
+
+		font-family: 'Montserrat';
+		th {
+			font-size: 2em;
+			font-weight: 300;
+		}
+		.instructions-title {
+			padding-left: 0.5em;
+		}
+		.instructions-button {
+			text-align: center;
+		}
+	}
+}
+$YPos: 0;
+@media (height <= 400px) {
+	$YPos: -50%;
+}
+@media (height > 400px) {
+	$YPos: -40px;
+}
+
+.html-wrapper {
+	width: 50vw;
+	height: 50vh;
+	top: auto !important;
+	left: 2.5%;
+	bottom: 5%;
+	transform: translate3d(0px, $YPos, 0px) scale(1) !important;
+}
